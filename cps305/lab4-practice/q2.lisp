@@ -1,12 +1,6 @@
 (defun CREATE-INITIALIZED-ARRAY (size)
-    (
-        let
-        (
-            (result (make-array size))
-        )
-        (dotimes(i size)
+    (let ((result (make-array size)))
+        (dotimes (i size) 
             (setf (aref result i) (expt i 2))
         )
-        result
-    )
-)
+        result))

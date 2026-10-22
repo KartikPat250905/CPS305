@@ -1,0 +1,61 @@
+(defun SECOND-LAST (lst)
+    (when (or (< (length lst) 2) (null lst)) (return-from SECOND-LAST nil))
+    (nth (- (length lst) 2) lst)
+)
+
+(defun repeat-each (list k)
+    (let ((result '()))
+        (dolist (x list)
+            (dotimes (i k) (push x result)))
+    (return-from repeat-each (reverse result)))
+)
+
+(defun FLATTEN (nested)
+    (cond ((null nested) nil)
+        ((atom nested) (list nested))
+        (t (append (flatten (car nested)) (flatten (cdr nested))))
+    )
+)
+
+(defun SUBSETS-SUM (list target)
+    (cond ((= target 0) t)
+          ((null list) nil)
+          (t (or (SUBSETS-SUM (rest list) (- target (car list)))
+                 (SUBSETS-SUM (rest list) target)))
+    )
+)
+
+(defun DIGITS-SUM (num)
+    (do* (
+        (result 0 (+ result digit))
+        (temp num (truncate temp 10.0))
+        (digit (mod num 10) (mod temp 10)))
+        ((<= temp 0) result)
+    )
+)
+
+(defun MAX-RUN (list)
+    (when (null list) (return-from MAX-RUN 0))
+    (let ((result 1) (running 1) (prev (car list)))
+        (dolist (x (cdr list))
+            (cond
+                ((equal prev x) (setf running (1+ running)))
+                (t (setf running 1)
+                    (setf prev x))
+            )
+            (when (> running result) (setf result running))
+        )
+        result
+    )
+)
+
+(defun TRANSPOSE-PAIRS (l1 l2)
+    (do
+        ((t1 l1 (cdr t1))
+        (t2 l2 (cdr t2))
+        (result nil))
+        ((null t1) (reverse result))
+        (push (list (car t1) (car t2)) result)
+    )
+)
+

@@ -1,0 +1,7 @@
+(defun SEARCH-FOR-POINT (list-of-points target)
+    (dotimes (i (length list-of-points))
+        (let ((current-point (nth i list-of-points)))
+            (when (and (= (first current-point) (first target)) (= (second current-point) (second target))) (return-from search-for-point i))
+        )
+    )
+)
