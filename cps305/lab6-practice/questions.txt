@@ -1,0 +1,150 @@
+Exercise - 2
+WHAT YOU ARE ASKED
+NOTE:
+
+You are required to write the solutions for the parts of this question in the lisp program file ~/cps305/lab06-practice/q2.lisp .
+Unless explicitly permitted in the exercise instructions, your solution must be self-contained within the requested function—do not define additional helper functions.
+Please copy and paste your solution code from Exercise 1 into your solution file before proceeding.
+
+Write two helper functions to query stack status:
+
+STACK-SIZE (stk): Returns the total number of elements currently stored in stk.
+STACK-CAPACITY-LEFT (stk): Returns the remaining number of elements stk can accept before becoming full.
+The expression below
+
+  (LET ((STK (MAKE-EMPTY-STACK 10)))
+    (STACK-SIZE STK))
+
+should evaluate to
+
+  0
+The expression below
+
+  (LET ((STK (MAKE-EMPTY-STACK 5)))
+    (STACK-PUSH 10 STK)
+    (STACK-PUSH 20 STK)
+    (STACK-SIZE STK))
+
+should evaluate to
+
+  2
+The expression below
+
+  (LET ((STK (MAKE-EMPTY-STACK 5)))
+    (STACK-PUSH 10 STK)
+    (STACK-PUSH 20 STK)
+    (STACK-CAPACITY-LEFT STK))
+
+should evaluate to
+
+  3
+The expression below
+
+  (LET ((STK (MAKE-EMPTY-STACK 3)))
+    (DOTIMES (I 3) (STACK-PUSH I STK))
+    (STACK-CAPACITY-LEFT STK))
+
+should evaluate to
+
+  0
+Exercise - 3
+WHAT YOU ARE ASKED
+NOTE:
+
+You are required to write the solutions for the parts of this question in the lisp program file ~/cps305/lab06-practice/q3.lisp .
+Unless explicitly permitted in the exercise instructions, your solution must be self-contained within the requested function—do not define additional helper functions.
+Please copy and paste your stack implementation from Exercise 1 into your solution file.
+
+Implement two batch operations on stacks:
+
+STACK-PUSH-MANY (lst stk): Pushes each item from list lst onto stk in order (left to right). If pushing all elements exceeds available capacity, it should signal an error and leave stk un-modified.
+STACK-POP-MANY (n stk): Pops n elements from stk and returns them as a standard Lisp list in the order they were popped (top to bottom). Signals an error if stk contains fewer than n elements without modifying stk.
+The expression below
+
+  (LET ((STK (MAKE-EMPTY-STACK 5)))
+    (STACK-PUSH-MANY (LIST 10 20 30) STK)
+    (STACK-PEEK STK))
+
+should evaluate to
+
+  30
+The expression below
+
+  (LET ((STK (MAKE-EMPTY-STACK 5)))
+    (STACK-PUSH-MANY (LIST 1 2 3 4) STK)
+    (STACK-POP-MANY 2 STK))
+
+should evaluate to
+
+  (4 3)
+The expression below
+
+  (LET ((STK (MAKE-EMPTY-STACK 5)))
+    (STACK-PUSH-MANY (LIST 10 20 30) STK)
+    (STACK-POP-MANY 3 STK))
+
+should evaluate to
+
+  (30 20 10)
+The expression below
+
+  (HANDLER-CASE
+   (LET ((STK (MAKE-EMPTY-STACK 2)))
+     (STACK-PUSH-MANY (LIST 1 2 3) STK)
+     NIL)
+   (ERROR NIL T))
+
+should evaluate to
+
+  T
+Exercise - 4
+WHAT YOU ARE ASKED
+NOTE:
+
+You are required to write the solutions for the parts of this question in the lisp program file ~/cps305/lab06-practice/q4.lisp .
+Unless explicitly permitted in the exercise instructions, your solution must be self-contained within the requested function—do not define additional helper functions.
+Please copy and paste your stack implementation from Exercise 1 into your solution file.
+
+Write two non-destructive inspection functions for array-backed stacks:
+
+STACK-TO-LIST (stk): Returns a standard Common Lisp list containing all elements of stk ordered from top to bottom without altering stk.
+STACK-CONTAINS-P (stk target): Performs a search over stk and returns T if target is present, NIL otherwise.
+The expression below
+
+  (LET ((STK (MAKE-EMPTY-STACK 5)))
+    (STACK-PUSH 10 STK)
+    (STACK-PUSH 20 STK)
+    (STACK-PUSH 30 STK)
+    (STACK-TO-LIST STK))
+
+should evaluate to
+
+  (30 20 10)
+The expression below
+
+  (LET ((STK (MAKE-EMPTY-STACK 5)))
+    (STACK-TO-LIST STK))
+
+should evaluate to
+
+  NIL
+The expression below
+
+  (LET ((STK (MAKE-EMPTY-STACK 5)))
+    (STACK-PUSH 10 STK)
+    (STACK-PUSH 20 STK)
+    (STACK-CONTAINS-P STK 20))
+
+should evaluate to
+
+  T
+The expression below
+
+  (LET ((STK (MAKE-EMPTY-STACK 5)))
+    (STACK-PUSH 10 STK)
+    (STACK-PUSH 20 STK)
+    (STACK-CONTAINS-P STK 99))
+
+should evaluate to
+
+  NIL
